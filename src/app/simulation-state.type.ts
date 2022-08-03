@@ -1,0 +1,1 @@
+export type SimulationState = 'initial' | 'in-progress' | 'finished'

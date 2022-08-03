@@ -1,0 +1,40 @@
+<div class="background">
+</div>
+<div class="container">
+    <form [formGroup]="setupForm" (ngSubmit)="saveSettings()">
+        <div class="form-group">
+            <label for="duration">Simulation time (seconds):</label>
+            <br>
+            <input class="form-control" type="number" name="duration" [formControlName]="'duration'">  
+            <br>  
+            <span *ngIf="!setupForm.get('duration')?.valid && setupForm.get('duration')?.touched" class="error-message">Please set a number between 10 and 90 seconds.</span>      
+        </div>
+        <div class="form-group">
+            <label for="goals">Number of goals:</label>
+            <br>
+            <input class="form-control" type="number" name="goals" [formControlName]="'goals'">
+            <br>
+            <span *ngIf="!setupForm.get('goals')?.valid && setupForm.get('goals')?.touched" class="error-message">Please select number of goals from range 1 to 20.</span> 
+        </div>
+        <div class="form-group">
+            <label for="teams">Number of teams:</label>
+            <br>
+            <select class="form-control" name="duration" id="duration" [formControlName]="'teams'" (change)="onNumberOfTeamsSet()">
+                <option *ngFor="let value of numberOfTeamsAllowed" [value]="value">{{value}}</option>
+            </select>
+        </div>
+        <div [formArrayName]="'teamsNames'" class="form-group" *ngIf="setupForm.get('teams')?.value">
+            <label>Set teams names</label>
+            <div *ngFor="let teamNameControl of getTeamsNamesControls(); let i=index">
+                <input type="text" [formControlName]="i" required class="form-control" style="margin-bottom: 10px;">
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <button type="button" class="btn btn-default" (click)="setDefaultValues()">Set default</button>
+            <button type="button" class="btn btn-primary" (click)="clearForm()">Clear</button>
+            <button type="submit" class="btn btn-success" [disabled]="!setupForm.valid">Confirm</button>
+            <button type="button" class="btn btn-danger" (click)="closeSetup()">Close</button>
+        </div>
+    </form>
+</div>
