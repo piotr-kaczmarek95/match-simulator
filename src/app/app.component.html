@@ -9,7 +9,7 @@
         <button type="button" (click)="onMainButtonClicked()" [disabled]="!(matches && matches.length)" class="btn btn-success">{{mainButtonText}}</button>
     </div>   
 
-    <div class="matches-container">
+    <div class="matches-container" *ngIf="matches">
         <div *ngFor="let match of matches" class="single-match">
             <app-match [match]="match" [goalScored]="goalScored" [resetMatch]="resetMatch"></app-match>
         </div>
